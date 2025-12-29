@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Commande SHEIN Tunisie</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <h1>Commande SHEIN Tunisie</h1>
+  <p>Commandez vos articles SHEIN facilement</p>
+</header>
+
+<div class="box">
+  <h3>Ajouter un article SHEIN</h3>
+  <input id="name" placeholder="Nom ou code article">
+  <input id="price" type="number" placeholder="Prix USD">
+  <input id="qty" type="number" value="1">
+  <button class="primary" onclick="addItem()">Ajouter au panier</button>
+</div>
+
+<div class="box">
+  <h3>Livraison</h3>
+  <select id="deliveryType" onchange="renderCart()">
+    <option value="pickup">Récupération sur place (0 TND)</option>
+    <option value="delivery">Livraison à domicile</option>
+  </select>
+</div>
+
+<div class="box">
+  <h3>Panier</h3>
+  <table id="cart">
+    <tr>
+      <th>Article</th>
+      <th>Qté</th>
+      <th>Prix</th>
+    </tr>
+  </table>
+
+  <div class="total">
+    Total à payer : <span id="total">0</span> TND
+  </div>
+</div>
+
+<div class="box">
+  <h3>Validation</h3>
+  <p><strong>Paiement :</strong> Cash uniquement</p>
+  <button class="primary" onclick="generatePDF()">Valider & Télécharger la facture</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="script.js"></script>
+
+</body>
