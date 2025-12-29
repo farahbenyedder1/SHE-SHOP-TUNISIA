@@ -68,9 +68,43 @@ function generatePDF() {
     y += 8;
   });
 
-  let total = document.getElementById("total").innerText;
+  let deliveryType = document.getElementById("deliveryType").value;
+  let deliveryFee = getDeliveryFee();
+
   y += 10;
-  doc.text(`Total à payer : ${total} QR`, 10, y);
+  doc.text(`Livraison: ${deliveryType === "delivery" ? "À domicile (9 TND)" : "Récupération sur place"}`, 10, y);
+  y += 8;
+  doc.text(`Total à payer : ${(parseFloat(document.getElementById("total").innerText)).toFixed(2)} QR`, 10, y);
 
   doc.save("facture.pdf");
+}
+function getDeliveryFee() {
+  let type = document.getElementById("deliveryType").value;
+  return type === "delivery" ? 9 : 0; // 9 TND si livraison, 0 si récupération
+}
+
+function renderCart() {
+  let table = document.getElementById("cart");
+  table.innerHTML = `
+    <tr>
+      <th>Code</th>
+      <th>Qté</th>
+      <th>Prix final (QR)</th>
+    </tr>
+  `;
+
+  let total = 0;
+  cart.forEach(item => {
+    total += item.priceFinal * item.qty;
+    table.innerHTML += `
+      <tr>
+        <td>${item.code}</td>
+        <td>${item.qty}</td>
+        <td>${(item.priceFinal * item.qty).toFixed(2)}</td>
+      </tr>
+    `;
+  });
+
+  total += getDeliveryFee(); // Ajouter frais livraison
+  document.getElementById("total").innerText = total.toFixed(2);
 }
