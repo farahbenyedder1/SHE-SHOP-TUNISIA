@@ -1,49 +1,53 @@
 let cart = [];
 
-function getRate() {
-  return parseFloat(localStorage.getItem("rate") || 3.25);
-}
-
-function getDeliveryFee() {
-  let type = document.getElementById("deliveryType").value;
-  return type === "delivery"
-    ? parseFloat(localStorage.getItem("deliveryFee") || 8)
-    : 0;
-}
-
 function addItem() {
-  let name = document.getElementById("name").value;
-  let price = parseFloat(document.getElementById("price").value);
-  let qty = parseInt(document.getElementById("qty").value);
+  let code = document.getElementById("codeInput").value.trim();
+  let price = parseFloat(document.getElementById("priceInput").value);
+  let qty = parseInt(document.getElementById("qtyInput").value);
 
-  if (!name || !price || !qty) return;
+  if (!code || !price || !qty) {
+    alert("Veuillez remplir tous les champs");
+    return;
+  }
 
-  cart.push({ name, price, qty });
+  let priceFinal = price * 1.23; // application du taux
+
+  cart.push({
+    code: code,
+    qty: qty,
+    priceFinal: priceFinal
+  });
+
   renderCart();
+
+  // Réinitialiser les champs
+  document.getElementById("codeInput").value = "";
+  document.getElementById("priceInput").value = "";
+  document.getElementById("qtyInput").value = 1;
 }
 
 function renderCart() {
   let table = document.getElementById("cart");
-  let rate = getRate();
-  let total = 0;
-
   table.innerHTML = `
-    <tr><th>Article</th><th>Qté</th><th>Prix (TND)</th></tr>
+    <tr>
+      <th>Code</th>
+      <th>Qté</th>
+      <th>Prix final (QR)</th>
+    </tr>
   `;
 
-  cart.forEach(i => {
-    let tnd = i.price * rate * i.qty;
-    total += tnd;
+  let total = 0;
+  cart.forEach(item => {
+    total += item.priceFinal * item.qty;
     table.innerHTML += `
       <tr>
-        <td>${i.name}</td>
-        <td>${i.qty}</td>
-        <td>${tnd.toFixed(2)}</td>
+        <td>${item.code}</td>
+        <td>${item.qty}</td>
+        <td>${(item.priceFinal * item.qty).toFixed(2)}</td>
       </tr>
     `;
   });
 
-  total += getDeliveryFee();
   document.getElementById("total").innerText = total.toFixed(2);
 }
 
@@ -51,14 +55,22 @@ function generatePDF() {
   const { jsPDF } = window.jspdf;
   let doc = new jsPDF();
 
-  doc.text("Facture - Commande SHEIN", 10, 10);
-  let y = 20;
+  let y = 10;
+  doc.text("Facture - Commande", 10, y);
+  y += 10;
 
-  cart.forEach(i => {
-    doc.text(`${i.name} | Qté: ${i.qty}`, 10, y);
+  cart.forEach(item => {
+    doc.text(
+      `Code: ${item.code} | Qté: ${item.qty} | Prix final: ${(item.priceFinal * item.qty).toFixed(2)} QR`,
+      10,
+      y
+    );
     y += 8;
   });
 
-  doc.text("Total: " + document.getElementById("total").innerText + " TND", 10, y + 10);
-  doc.save("facture_shein.pdf");
+  let total = document.getElementById("total").innerText;
+  y += 10;
+  doc.text(`Total à payer : ${total} QR`, 10, y);
+
+  doc.save("facture.pdf");
 }

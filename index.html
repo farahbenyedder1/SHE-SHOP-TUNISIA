@@ -9,37 +9,29 @@
 
 <header class="header">
   <h1>Commande SHEIN Tunisie</h1>
-  <p>Commandez vos articles SHEIN facilement</p>
+  <p>Commandez vos articles facilement</p>
 </header>
 
 <div class="box">
-  <h3>Ajouter un article SHEIN</h3>
-  <input id="name" placeholder="Nom ou code article">
-  <input id="price" type="number" placeholder="Prix USD">
-  <input id="qty" type="number" value="1">
+  <h3>Ajouter un article</h3>
+  <input id="codeInput" placeholder="Code ou lien du produit">
+  <input id="priceInput" type="number" placeholder="Prix hors promo (QR)">
+  <input id="qtyInput" type="number" value="1" min="1">
   <button class="primary" onclick="addItem()">Ajouter au panier</button>
-</div>
-
-<div class="box">
-  <h3>Livraison</h3>
-  <select id="deliveryType" onchange="renderCart()">
-    <option value="pickup">Récupération sur place (0 TND)</option>
-    <option value="delivery">Livraison à domicile</option>
-  </select>
 </div>
 
 <div class="box">
   <h3>Panier</h3>
   <table id="cart">
     <tr>
-      <th>Article</th>
+      <th>Code</th>
       <th>Qté</th>
-      <th>Prix</th>
+      <th>Prix final (QR)</th>
     </tr>
   </table>
 
   <div class="total">
-    Total à payer : <span id="total">0</span> TND
+    Total : <span id="total">0</span> QR
   </div>
 </div>
 
@@ -53,3 +45,4 @@
 <script src="script.js"></script>
 
 </body>
+</html>
