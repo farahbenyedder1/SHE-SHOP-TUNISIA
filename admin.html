@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1 style="text-align:center;">Admin</h1>
+
+<div class="box">
+  <label>Taux USD → TND</label>
+  <input id="rate" type="number" step="0.01">
+  <label>Frais livraison (TND)</label>
+  <input id="deliveryFee" type="number">
+  <button class="primary" onclick="save()">Enregistrer</button>
+</div>
+
+<script>
+function save() {
+  localStorage.setItem("rate", document.getElementById("rate").value);
+  localStorage.setItem("deliveryFee", document.getElementById("deliveryFee").value);
+  alert("Paramètres enregistrés");
+}
+</script>
+
+</body>
+</html>

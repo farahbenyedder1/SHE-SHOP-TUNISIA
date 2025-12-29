@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f1f2f6;
+  color: #333;
+}
+
+.header {
+  background: #000;
+  color: white;
+  padding: 30px 15px;
+  text-align: center;
+}
+
+.header p {
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+.box {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 650px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+h3 {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 8px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+button {
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button.primary {
+  background: #000;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+}
+
+button.primary:hover {
+  opacity: 0.9;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.total {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #eee;
+  font-size: 13px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .box {
+    margin: 15px;
+    padding: 15px;
+  }
+
+  th, td {
+    font-size: 14px;
+  }
+}
